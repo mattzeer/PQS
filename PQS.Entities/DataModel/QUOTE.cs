@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PQS.Entities
+namespace PQS.Entities.DataModel
 {
     using System;
     using System.Collections.Generic;

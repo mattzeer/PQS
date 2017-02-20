@@ -7,8 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PQS.Entities
+namespace PQS.Dal.SqlServer.DataModel
 {
+    using PQS.Entities.DataModel;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;

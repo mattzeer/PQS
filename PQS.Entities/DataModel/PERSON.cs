@@ -7,22 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PQS.Entities
+namespace PQS.Entities.DataModel
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class ATTACHMENT
+    public partial class PERSON
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ATTACHMENT()
+        public PERSON()
         {
             this.QUOTE = new HashSet<QUOTE>();
         }
     
         public short ID { get; set; }
-        public string NAME { get; set; }
-        public string URL { get; set; }
+        public string PSEUDO { get; set; }
+        public string PASSWORD { get; set; }
+        public string MAIL { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QUOTE> QUOTE { get; set; }
