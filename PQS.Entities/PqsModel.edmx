@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="pqsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ATTACHMENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="30" />
+          <Property Name="URL" Type="varchar" MaxLength="4000" />
+        </EntityType>
+        <EntityType Name="PERSON">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PSEUDO" Type="varchar" MaxLength="30" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="255" />
+          <Property Name="MAIL" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="QUOTE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDUSER" Type="smallint" Nullable="false" />
+          <Property Name="CODE" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="IDATTACHMENT" Type="smallint" />
+          <Property Name="NAME" Type="varchar" MaxLength="50" />
+          <Property Name="CAPTION" Type="char" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="TYPEQUOTE">
+          <Key>
+            <PropertyRef Name="CODE" />
+          </Key>
+          <Property Name="CODE" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="LABEL" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <Association Name="FK_QUOTE_ATTACHMENT">
+          <End Role="ATTACHMENT" Type="Self.ATTACHMENT" Multiplicity="0..1" />
+          <End Role="QUOTE" Type="Self.QUOTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ATTACHMENT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUOTE">
+              <PropertyRef Name="IDATTACHMENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QUOTE_PERSON">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
+          <End Role="QUOTE" Type="Self.QUOTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUOTE">
+              <PropertyRef Name="IDUSER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QUOTE_TYPEQUOTE">
+          <End Role="TYPEQUOTE" Type="Self.TYPEQUOTE" Multiplicity="1" />
+          <End Role="QUOTE" Type="Self.QUOTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPEQUOTE">
+              <PropertyRef Name="CODE" />
+            </Principal>
+            <Dependent Role="QUOTE">
+              <PropertyRef Name="CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="pqsModelStoreContainer">
+          <EntitySet Name="ATTACHMENT" EntityType="Self.ATTACHMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PERSON" EntityType="Self.PERSON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QUOTE" EntityType="Self.QUOTE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TYPEQUOTE" EntityType="Self.TYPEQUOTE" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_QUOTE_ATTACHMENT" Association="Self.FK_QUOTE_ATTACHMENT">
+            <End Role="ATTACHMENT" EntitySet="ATTACHMENT" />
+            <End Role="QUOTE" EntitySet="QUOTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QUOTE_PERSON" Association="Self.FK_QUOTE_PERSON">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="QUOTE" EntitySet="QUOTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QUOTE_TYPEQUOTE" Association="Self.FK_QUOTE_TYPEQUOTE">
+            <End Role="TYPEQUOTE" EntitySet="TYPEQUOTE" />
+            <End Role="QUOTE" EntitySet="QUOTE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="pqsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ATTACHMENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="URL" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="QUOTE" Relationship="Self.FK_QUOTE_ATTACHMENT" FromRole="ATTACHMENT" ToRole="QUOTE" />
+        </EntityType>
+        <EntityType Name="PERSON">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PSEUDO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="QUOTE" Relationship="Self.FK_QUOTE_PERSON" FromRole="PERSON" ToRole="QUOTE" />
+        </EntityType>
+        <EntityType Name="QUOTE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDUSER" Type="Int16" Nullable="false" />
+          <Property Name="CODE" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDATTACHMENT" Type="Int16" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CAPTION" Type="String" MaxLength="300" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="ATTACHMENT" Relationship="Self.FK_QUOTE_ATTACHMENT" FromRole="QUOTE" ToRole="ATTACHMENT" />
+          <NavigationProperty Name="PERSON" Relationship="Self.FK_QUOTE_PERSON" FromRole="QUOTE" ToRole="PERSON" />
+          <NavigationProperty Name="TYPEQUOTE" Relationship="Self.FK_QUOTE_TYPEQUOTE" FromRole="QUOTE" ToRole="TYPEQUOTE" />
+        </EntityType>
+        <EntityType Name="TYPEQUOTE">
+          <Key>
+            <PropertyRef Name="CODE" />
+          </Key>
+          <Property Name="CODE" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LABEL" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="QUOTE" Relationship="Self.FK_QUOTE_TYPEQUOTE" FromRole="TYPEQUOTE" ToRole="QUOTE" />
+        </EntityType>
+        <Association Name="FK_QUOTE_ATTACHMENT">
+          <End Role="ATTACHMENT" Type="Self.ATTACHMENT" Multiplicity="0..1" />
+          <End Role="QUOTE" Type="Self.QUOTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ATTACHMENT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUOTE">
+              <PropertyRef Name="IDATTACHMENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QUOTE_PERSON">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
+          <End Role="QUOTE" Type="Self.QUOTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUOTE">
+              <PropertyRef Name="IDUSER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QUOTE_TYPEQUOTE">
+          <End Role="TYPEQUOTE" Type="Self.TYPEQUOTE" Multiplicity="1" />
+          <End Role="QUOTE" Type="Self.QUOTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPEQUOTE">
+              <PropertyRef Name="CODE" />
+            </Principal>
+            <Dependent Role="QUOTE">
+              <PropertyRef Name="CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="pqsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ATTACHMENT" EntityType="Self.ATTACHMENT" />
+          <EntitySet Name="PERSON" EntityType="Self.PERSON" />
+          <EntitySet Name="QUOTE" EntityType="Self.QUOTE" />
+          <EntitySet Name="TYPEQUOTE" EntityType="Self.TYPEQUOTE" />
+          <AssociationSet Name="FK_QUOTE_ATTACHMENT" Association="Self.FK_QUOTE_ATTACHMENT">
+            <End Role="ATTACHMENT" EntitySet="ATTACHMENT" />
+            <End Role="QUOTE" EntitySet="QUOTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QUOTE_PERSON" Association="Self.FK_QUOTE_PERSON">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="QUOTE" EntitySet="QUOTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QUOTE_TYPEQUOTE" Association="Self.FK_QUOTE_TYPEQUOTE">
+            <End Role="TYPEQUOTE" EntitySet="TYPEQUOTE" />
+            <End Role="QUOTE" EntitySet="QUOTE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="pqsModelStoreContainer" CdmEntityContainer="pqsEntities">
+          <EntitySetMapping Name="ATTACHMENT">
+            <EntityTypeMapping TypeName="pqsModel.ATTACHMENT">
+              <MappingFragment StoreEntitySet="ATTACHMENT">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PERSON">
+            <EntityTypeMapping TypeName="pqsModel.PERSON">
+              <MappingFragment StoreEntitySet="PERSON">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PSEUDO" ColumnName="PSEUDO" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="MAIL" ColumnName="MAIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QUOTE">
+            <EntityTypeMapping TypeName="pqsModel.QUOTE">
+              <MappingFragment StoreEntitySet="QUOTE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDUSER" ColumnName="IDUSER" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="IDATTACHMENT" ColumnName="IDATTACHMENT" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="CAPTION" ColumnName="CAPTION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TYPEQUOTE">
+            <EntityTypeMapping TypeName="pqsModel.TYPEQUOTE">
+              <MappingFragment StoreEntitySet="TYPEQUOTE">
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="LABEL" ColumnName="LABEL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
