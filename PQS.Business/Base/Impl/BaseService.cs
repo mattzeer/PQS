@@ -1,6 +1,7 @@
 ﻿using Microsoft.Practices.Unity;
 using PQS.Business.Admin;
 using PQS.Business.Base.Criteria;
+using PQS.Business.Base.Result;
 using PQS.Dal.SqlServer.Manager;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,19 @@ namespace PQS.Business.Base.Impl
             set;
         }
 
-        public abstract Task DeleteAsync(TEntity entity);
-        //public abstract Task<List<TEntity>> ReadAsync(BaseService criteria);
-        public abstract Task SaveAsync(TEntity entity);
+        public abstract Task<EntityProcedureResult> DeleteAsync(TEntity entity);
+
+        public abstract Task<EntityProcedureResult> SaveAsync(TEntity entity);
+
+        public EntityProcedureResult GetDefaultResult()
+        {
+            EntityProcedureResult result = new EntityProcedureResult()
+            {
+                ErrorCode = 0,
+                IsError = false
+            };
+            return result;
+        }
+        
     }
 }

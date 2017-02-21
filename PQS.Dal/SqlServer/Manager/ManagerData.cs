@@ -50,7 +50,6 @@ namespace Dds.Join2Ship.Dal.SqlServer.Manager
         public ManagerData()
         {
             context = new pqsEntities(ConfigurationManager.AppSettings["CONNEXION_STRING"]);
-            //context.Configuration.AutoDetectChangesEnabled = false;
             var objectContext = (this.context as IObjectContextAdapter).ObjectContext;
         }
 
@@ -253,8 +252,7 @@ namespace Dds.Join2Ship.Dal.SqlServer.Manager
         {
             try
             {
-                //context.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
-                context.Set<TEntity>().Remove(entity);
+                context.Entry(entity).State = EntityState.Deleted;
             }
             catch (Exception e)
             {
@@ -274,7 +272,18 @@ namespace Dds.Join2Ship.Dal.SqlServer.Manager
             }
         }
 
-
+        public async Task DeleteAsync<TEntity>(TEntity entity) where TEntity : class
+        {
+            try
+            {
+                context.Entry(entity).State = EntityState.Deleted;
+                await context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
 
         /// <summary>
         /// Sauvegarde  tous les changements après modification

@@ -21,6 +21,9 @@ namespace PQS.Dal.SqlServer.Manager
         void SaveChanges();
 
         #region async
+
+        Task DeleteAsync<TEntity>(TEntity entity) where TEntity : class;
+
         IEnumerable<TEntity> WhereAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class;
         Task<TEntity> SingleAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class;
         Task<TEntity> SingleOrDefaultAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class;

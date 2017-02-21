@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PQS.Business.Admin.Criteria
+namespace PQS.Business.Quote.Criteria
 {
-    public class UserCriteria : BaseCriteria
+    public class QuoteCriteria : BaseCriteria
     {
-        public string EmailUser { get; set; }
+        public int IdQuote { get; set; }
     }
 }

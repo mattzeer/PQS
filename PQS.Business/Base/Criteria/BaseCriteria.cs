@@ -8,5 +8,7 @@ namespace PQS.Business.Base.Criteria
 {
     public class BaseCriteria
     {
+        public int IdUser { get; set; }
+        
     }
 }

@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace PQS.Business.Admin.Criteria
 {
-    public class UserCriteria : BaseCriteria
+    class FileCriteria : BaseCriteria
     {
-        public string EmailUser { get; set; }
+        public int IdFile { get; set; }
+
+        public string UrlFile { get; set; }
+        public string NameFile { get; set; }
     }
 }

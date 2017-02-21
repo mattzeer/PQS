@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\Criteria\FileCriteria.cs" />
     <Compile Include="Admin\Criteria\UserCriteria.cs" />
     <Compile Include="Admin\Impl\FileService.cs" />
     <Compile Include="Admin\Impl\UserService.cs" />
@@ -60,13 +61,16 @@
     <Compile Include="Base\Criteria\BaseCriteria.cs" />
     <Compile Include="Base\IBaseService.cs" />
     <Compile Include="Base\Impl\BaseService.cs" />
+    <Compile Include="Base\Result\EntityProcedureResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Quote\Criteria\QuoteCriteria.cs" />
+    <Compile Include="Quote\Criteria\TypeQuoteCriteria.cs" />
     <Compile Include="Quote\Impl\QuoteService.cs" />
     <Compile Include="Quote\IQuoteService.cs" />
     <Compile Include="UnityConfig.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Quote\Criteria\" />
+    <Folder Include="Admin\Result\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

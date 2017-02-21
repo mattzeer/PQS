@@ -2,11 +2,10 @@
 using PQS.Business;
 using PQS.Business.Admin;
 using PQS.Entities.DataModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
+using PQS.UI_Api.Models.Home;
+using PQS.Business.Quote;
 
 namespace PQS.UI_Api.Controllers
 {
@@ -14,15 +13,19 @@ namespace PQS.UI_Api.Controllers
     {
 
         [Dependency]
-        public IUserService UserService => UnityConfig.Resolve<IUserService>();
+        public IQuoteService QuoteService => UnityConfig.Resolve<IQuoteService>();
 
         // GET: Home
-        public virtual async System.Threading.Tasks.Task<ActionResult> Index()
+        public virtual async Task<ActionResult> Index()
         {
-            PERSON p = await UserService.getPersonByIdAsync(1);
-            ViewBag.test = p.MAIL;
-            return View();
+            IndexViewModel model = new IndexViewModel()
+            {
+                Quotes = await QuoteService.GetQuoteListAsync()
+            };
+            return View(model);
         }
+
+
 
         // GET: Home/Details/5
         public virtual ActionResult Details(int id)
