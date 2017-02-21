@@ -10,35 +10,35 @@ using System.Web.Mvc;
 
 namespace PQS.UI_Api.Controllers
 {
-    public class HomeController : Controller
+    public partial class HomeController : Controller
     {
 
         [Dependency]
         public IUserService UserService => UnityConfig.Resolve<IUserService>();
 
         // GET: Home
-        public async System.Threading.Tasks.Task<ActionResult> Index()
+        public virtual async System.Threading.Tasks.Task<ActionResult> Index()
         {
-            PERSON p  = await UserService.getPersonByIdAsync(1);
+            PERSON p = await UserService.getPersonByIdAsync(1);
             ViewBag.test = p.MAIL;
             return View();
         }
 
         // GET: Home/Details/5
-        public ActionResult Details(int id)
+        public virtual ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: Home/Create
-        public ActionResult Create()
+        public virtual ActionResult Create()
         {
             return View();
         }
 
         // POST: Home/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public virtual ActionResult Create(FormCollection collection)
         {
             try
             {
@@ -53,14 +53,14 @@ namespace PQS.UI_Api.Controllers
         }
 
         // GET: Home/Edit/5
-        public ActionResult Edit(int id)
+        public virtual ActionResult Edit(int id)
         {
             return View();
         }
 
         // POST: Home/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public virtual ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
@@ -75,14 +75,14 @@ namespace PQS.UI_Api.Controllers
         }
 
         // GET: Home/Delete/5
-        public ActionResult Delete(int id)
+        public virtual ActionResult Delete(int id)
         {
             return View();
         }
 
         // POST: Home/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public virtual ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
