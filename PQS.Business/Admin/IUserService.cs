@@ -8,5 +8,13 @@ namespace PQS.Business.Admin
     public interface IUserService : IBaseService<PERSON, UserCriteria>
     {
         Task<PERSON> GetPersonByIdAsync(int id);
+
+        Task<bool> PseudoAlreadyUsedAsync(string pseudo);
+
+        Task<bool> EmailAlreaydUsedAsync(string email);
+
+        Task<bool> LoginAsync(UserCriteria criteria);
+
+        Task<PERSON> GetPersonByEmailAsync(string mail);
     }
 }

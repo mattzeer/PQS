@@ -30,11 +30,34 @@ namespace PQS.Business.Admin.Impl
            
         }
 
+        public async Task<bool> EmailAlreaydUsedAsync(string email)
+        {
+            PERSON p = await Manager.FirstAsync<PERSON>(m => m.MAIL == email);
+            return p == null ? false : true;
+        }
+
+        public async Task<PERSON> GetPersonByEmailAsync(string mail)
+        {
+            return await Manager.FirstAsync<PERSON>(m => m.MAIL == mail);
+        }
+
         public async Task<PERSON> GetPersonByIdAsync(int id)
         {
             return await Manager.FirstAsync<PERSON>(m => m.ID == id);
         }
 
+        public async Task<bool> LoginAsync(UserCriteria criteria)
+        {
+            PERSON p = await Manager.FirstAsync<PERSON>(m => m.MAIL == criteria.EmailUser && m.PASSWORD == criteria.PasswordUser);
+            return p == null ? false : true;
+        }
+
+        public async Task<bool> PseudoAlreadyUsedAsync(string pseudo)
+        {
+            PERSON p = await Manager.FirstAsync<PERSON>(m => m.PSEUDO == pseudo);
+            return p == null ? false : true;
+                
+        }
 
         public override async Task<EntityProcedureResult> SaveAsync(PERSON entity)
         {

@@ -10,5 +10,7 @@ namespace PQS.Business.Admin.Criteria
     public class UserCriteria : BaseCriteria
     {
         public string EmailUser { get; set; }
+
+        public string PasswordUser { get; set; }
     }
 }

@@ -1,0 +1,79 @@
+﻿@model PQS.UI_Api.Models.Home.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    AjaxOptions options = new AjaxOptions()
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "register",
+        HttpMethod = "POST"
+    };
+}
+<div id="register">
+    <div class="row">
+        <div class="col-lg-4 offset-lg-4">
+            <!--Form with header-->
+            <div class="card">
+                <div class="card-block">
+
+                    <!--Header-->
+                    <div class="form-header blue-gradient">
+                        <h3><i class="fa fa-user"></i> Register:</h3>
+                    </div>
+
+                    <!--Body-->
+                    @using (Ajax.BeginForm("Register", "Home", options))
+                    {
+                        @Html.AntiForgeryToken();
+                        <div class="md-form">
+                            <i class="fa fa-user prefix"></i>
+                            @Html.TextBoxFor(m => m.Pseudo, new { @class = "form-control" })
+                            @Html.LabelFor(m => m.Pseudo)
+                            @Html.ValidationMessageFor(m => m.Pseudo)
+
+                        </div>
+                        <div class="md-form">
+                            <i class="fa fa-envelope prefix"></i>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.LabelFor(m => m.Email)
+                            @Html.ValidationMessageFor(m => m.Email)
+
+
+                        </div>
+
+                        <div class="md-form">
+                            <i class="fa fa-lock prefix"></i>
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+                            @Html.LabelFor(m => m.Password)
+                            @Html.ValidationMessageFor(m => m.Password)
+
+
+
+
+                        </div>
+
+                        <div class="md-form">
+                            <i class="fa fa-lock prefix"></i>
+                            @Html.TextBoxFor(m => m.RePassword, new { @class = "form-control" })
+                            @Html.LabelFor(m => m.RePassword)
+                            @Html.ValidationMessageFor(m => m.RePassword)
+
+
+
+
+                        </div>
+
+                        <div class="text-center">
+                            <button class="btn btn-indigo" type="submit">Sign up</button>
+                            <hr>
+                            <fieldset class="form-group">
+                                <input type="checkbox" id="checkbox1">
+                                <label for="checkbox1">Subscribe me to the newsletter</label>
+                            </fieldset>
+                        </div>
+                    }
+                </div>
+            </div>
+            <!--/Form with header-->
+        </div>
+    </div>
+</div>
